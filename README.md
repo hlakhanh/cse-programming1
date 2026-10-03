@@ -2,6 +2,8 @@
 
 This repository collects short C programs that accompany the lectures of the **Programming 1** course. Its organization is based on [bonigarcia/c-programming](https://github.com/bonigarcia/c-programming): each lecture is a folder, divided into topics, and each `.c` file is a standalone, commented program.
 
+See the **[course overview](COURSE_OVERVIEW.md)** for what you will learn, the learning outcomes, and where C is used, lecture by lecture.
+
 ## Compiling and running
 
 Requirements: `gcc` and `make` (Linux, WSL, macOS, or GitHub Codespaces).
