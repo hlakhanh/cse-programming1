@@ -3,6 +3,10 @@
 *.so
 *.out
 *.exe
+*.ilk
+*.obj
+*.pdb
+build
 
 # Compiled programs
 lecture01-intro/comments/comments

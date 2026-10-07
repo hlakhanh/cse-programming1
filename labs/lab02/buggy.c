@@ -3,35 +3,35 @@
 // Use gdb or VS Code (breakpoints, step, watch) to find them; do NOT add printf.
 //
 // Record the bugs you find:
-//   Bug 1: line ..., symptom ..., fix ...
-//   Bug 2:
-//   Bug 3:
-//   Bug 4:
+//   Bug 1: line 16, symptom sum wrong, fix: i start from 0
+//   Bug 2: line 22, symptom avg wrong, fix: use floating point division
+//   Bug 3: line 26:27, symptom max wrong, fix: start max with a[0] instead of 0
+//   Bug 4: line 34, symptom reverse wrong, fix: end the for loop halfway through the string
 #include <stdio.h>
 
 #define N 5
 
 int sum_array(int a[], int n) {
     int sum = 0;
-    for (int i = 1; i < n; i++)
+    for (int i = 0; i < n; i++)
         sum += a[i];
     return sum;
 }
 
 double average(int a[], int n) {
-    return sum_array(a, n) / n;
+    return sum_array(a, n) / (double)n;
 }
 
 int max_array(int a[], int n) {
-    int max = 0;
-    for (int i = 0; i < n; i++)
+    int max = a[0];
+    for (int i = 1; i < n; i++)
         if (a[i] > max)
             max = a[i];
     return max;
 }
 
 void reverse_string(char s[], int len) {
-    for (int i = 0; i < len; i++) {
+    for (int i = 0; i < (len / 2); i++) {
         char tmp = s[i];
         s[i] = s[len - 1 - i];
         s[len - 1 - i] = tmp;

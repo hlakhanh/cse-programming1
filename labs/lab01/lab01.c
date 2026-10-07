@@ -20,66 +20,102 @@ static int passed = 0, total = 0;
 
 // 1.1 Sum of two numbers
 int add(int a, int b) {
-    // TODO
-    (void)a; (void)b; // delete this line when implementing
-    return -1; // TODO: fix the return value
+    return a + b;
 }
 
 // 1.2 Sum of the digits of n (n may be negative: sum_digits(-12) = 3)
 int sum_digits(int n) {
-    // TODO: use n % 10 to get the last digit, n / 10 to drop the last digit
-    (void)n;
-    return -1; // TODO: fix the return value
+    if (n < 0) n = -n;
+    int sum = 0;
+    for (; n > 0; n /= 10) sum += (n % 10);
+    return sum; 
 }
 
 // 1.3 n! using a loop (0! = 1)
-long factorial(int n) {
-    // TODO
-    (void)n;
-    return -1; // TODO: fix the return value
+long long factorial(int n) {
+    long long fact = 1;
+    for (int i = 1; i <= n; i++) fact *= i;
+    return fact;
 }
 
 // 1.4a Recursive Fibonacci: fib(0) = 0, fib(1) = 1, fib(n) = fib(n-1) + fib(n-2)
 long fib_recursive(int n) {
-    // TODO
-    (void)n;
-    return -1; // TODO: fix the return value
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+    return fib_recursive(n-2) + fib_recursive(n-1);
 }
 
 // 1.4b Iterative Fibonacci
 long fib_loop(int n) {
-    // TODO
-    (void)n;
-    return -1; // TODO: fix the return value
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+    long a = 0;
+    long b = 1;
+    long temp = 0;
+    for (int i = 2; i <= n; i++)
+    {
+        temp = a + b;
+        a = b;
+        b = temp;
+    }
+    
+    return temp;
 }
 
 // 1.5 Return 1 if n is prime, otherwise 0 (numbers < 2 are not prime)
 int is_prime(int n) {
-    // TODO: only need to try divisors i with i * i <= n
-    (void)n;
-    return -1; // TODO: fix the return value
+    if (n < 2) return 0;
+    for (long i = 2; i * i <= n; i++)
+    if (n % i == 0) return 0;
+    return 1;
 }
 
 // 1.6 Greatest common divisor (Euclid's algorithm): gcd(a, b) = gcd(b, a % b), gcd(a, 0) = a
 int gcd(int a, int b) {
-    // TODO
-    (void)a; (void)b;
-    return -1; // TODO: fix the return value
+    int temp;
+    if (a < b){
+        temp = a;
+        a = b;
+        b = temp;
+    }
+    while (a > b && b != 0)
+    {
+        temp = a % b;
+        a = b;
+        b = temp;
+    }
+    return a;
 }
 
 // 1.7 Leap year
 int is_leap_year(int y) {
-    // TODO
-    (void)y;
-    return -1; // TODO: fix the return value
+    return y % 4 == 0 && (y % 100 != 0 || y % 400 == 0);
 }
 
 // 1.8 Number of days in a month. You MUST use switch, grouping cases with the same result.
 // Return 0 if month is not in 1..12
 int days_in_month(int month, int year) {
-    // TODO
-    (void)month; (void)year;
-    return -1; // TODO: fix the return value
+    switch (month)
+    {
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:
+        return 31;
+    case 2:
+        if (is_leap_year(year)) return 29;
+        else return 28;
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+        return 30;
+    default:
+        return 0;
+    }
 }
 
 int main() {

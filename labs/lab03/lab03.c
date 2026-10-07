@@ -33,44 +33,58 @@ static int same_array(const int *a, const int *b, int n) {
 
 // 3.1 Swap the values of two variables
 void swap(int *a, int *b) {
-    // TODO
-    (void)a; (void)b;
+    int temp = b[0];
+    b[0] = a[0];
+    a[0] = temp;
 }
 
 // 3.2 Find the min and max of the array (n >= 1), returned through pointers
 void min_max(const int *a, int n, int *min, int *max) {
-    // TODO
-    (void)a; (void)n; (void)min; (void)max;
+    min[0] = a[0];
+    max[0] = a[0];
+    for (int i = 1; i < n; i++)
+    {
+        min[0] = (min[0] < a[i]) ? min[0]: a[i];
+        max[0] = (max[0] > a[i]) ? max[0]: a[i];
+    }
 }
 
 // 3.3 Sum of the array. Do NOT use a[i]; use only *p and p++ (or *(a + i))
 int sum_pointer(const int *a, int n) {
-    // TODO
-    (void)a; (void)n;
-    return -1;
+    int sum = 0;
+    for (const int* i = a; i < a + n; i++) sum += *i;
+    return sum;
 }
 
 // 3.4 Return a copy of the array, allocated on the heap (the caller will free it)
 int *copy_array(const int *a, int n) {
-    // TODO: malloc(n * sizeof(int)), check for NULL, copy each element
-    (void)a; (void)n;
-    return NULL;
+    int* out = malloc(n * sizeof(int));
+    for (int i = 0; i < n; i++) out[i] = a[i];    
+    return out;
 }
 
 // 3.5 Return a new array containing only the even numbers of a (in the same order).
 //     Store the number of elements of the result in *returnSize.
 int *filter_even(const int *a, int n, int *returnSize) {
-    // TODO
-    (void)a; (void)n;
-    *returnSize = 0;
-    return NULL;
+    int c = 0;
+    for (int i = 0; i < n; i++) c += (a[i] % 2 == 0);
+    *returnSize = c;
+    int* out = malloc(c * sizeof(int));
+    c = 0;
+    for (int i = 0; i < n; i++){
+        if (a[i] % 2 == 0){
+            out[c] = a[i];
+            c++;
+        }
+    }
+    return out;
 }
 
 // 3.6 Implement strdup yourself: return a heap copy of the string s
 char *my_strdup(const char *s) {
-    // TODO: count the length, malloc(length + 1) - why +1?
-    (void)s;
-    return NULL;
+    char *copy = malloc(strlen(s) + 1);
+    strcpy(copy, s);
+    return copy;
 }
 
 // 3.7 Append value to the end of the dynamic array arr.
@@ -79,29 +93,43 @@ char *my_strdup(const char *s) {
 //     (if *capacity == 0, allocate 1 element).
 //     Return a pointer to the array (it may have changed after realloc).
 int *push_back(int *arr, int *size, int *capacity, int value) {
-    // TODO
-    (void)size; (void)capacity; (void)value;
+    if (*size <= 0) {
+        arr = malloc(8 * sizeof(int));
+        *capacity = 8;
+    }
+    if (*size == *capacity) {
+        *capacity *= 2;
+        int* temp = malloc(*capacity * sizeof(int));
+        memcpy(temp, arr, *size * sizeof(int));
+        arr = temp;
+    }
+    arr[*size] = value;
+    (*size)++;
     return arr;
 }
 
 // 3.8 Allocate a rows x cols matrix as int ** (Lecture 7), initialized to all 0
 int **alloc_matrix(int rows, int cols) {
-    // TODO: 1 malloc for the array of row pointers + rows calls to calloc, one per row
-    (void)rows; (void)cols;
-    return NULL;
+    int* low = calloc(rows * cols, sizeof(int));
+    int** out = malloc(rows * sizeof(int*));
+    for (int i = 0; i < rows; i++)
+    {
+        out[i] = low + (cols * i);
+    }
+    return out;
 }
 
 // 3.8 Free the matrix: each row first, then the array of pointers
 void free_matrix(int **m, int rows) {
-    // TODO
-    (void)m; (void)rows;
+    free(m[0]);
+    free(m);
 }
 
 // 3.9 Allocate an int on the heap, set it to value, and "return" it through parameter p
 //     (fixes the bug in out-of-scope-allocation_1.c)
 void allocate_int(int **p, int value) {
-    // TODO
-    (void)p; (void)value;
+    *p = malloc(sizeof(int));
+    **p = value;
 }
 
 int main() {
